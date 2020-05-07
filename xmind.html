@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>xmind</title>
+  <script src="./ajax.js"></script>
+</head>
+
+<body>
+  <script>
+    const url1 = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/bill.csv'
+    const url2 = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
+
+    // csv字符串转换成对象数组
+    function csvToObject(csvString) {
+      let csvArr = csvString.split(/\n/g)
+      let headerArr = csvArr[0].split(",")
+      let contentArr = csvArr.slice(1)
+      let csvObj = []
+
+      for (let item of contentArr) {
+        let obj = {}
+        let temp = item.split(',')
+        for (let i = 0; i < temp.length; i++) {
+          obj[headerArr[i]] = temp[i]
+        }
+        csvObj.push(obj)
+      }
+
+      return csvObj
+    }
+
+    ajax({ url: url1 }).then(res => {
+      let data = csvToObject(res)
+      console.log(data)
+    })
+  </script>
+</body>
+
+</html>
