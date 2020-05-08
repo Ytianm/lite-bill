@@ -6,38 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>xmind</title>
+  <link rel="stylesheet" href="./index.css">
   <script src="./ajax.js"></script>
+  <script src="./utils.js"></script>
+  <script src="./index.js"></script>
+  <script src="./assets/bill.js"></script>
+  <script src="./assets/categories.js"></script>
 </head>
 
 <body>
-  <script>
-    const url1 = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/bill.csv'
-    const url2 = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
-
-    // csv字符串转换成对象数组
-    function csvToObject(csvString) {
-      let csvArr = csvString.split(/\n/g)
-      let headerArr = csvArr[0].split(",")
-      let contentArr = csvArr.slice(1)
-      let csvObj = []
-
-      for (let item of contentArr) {
-        let obj = {}
-        let temp = item.split(',')
-        for (let i = 0; i < temp.length; i++) {
-          obj[headerArr[i]] = temp[i]
-        }
-        csvObj.push(obj)
-      }
-
-      return csvObj
-    }
-
-    ajax({ url: url1 }).then(res => {
-      let data = csvToObject(res)
-      console.log(data)
-    })
-  </script>
+  <div class="container">
+    <ul class="header">
+      <li>账单时间</li>
+      <li>账单类型</li>
+      <li>账单分类</li>
+      <li>账单金额（￥）</li>
+    </ul>
+    <ul id="content">
+    </ul>
+  </div>
 </body>
 
 </html>

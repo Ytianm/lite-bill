@@ -1,0 +1,44 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.container{
+  position: relative;
+  width: 90%;
+  height: 500px;
+  margin: 50px auto;
+  border: 1px solid #bbb;
+  box-shadow: 2px 2px 20px #000;
+}
+.header, .bill-item{
+  display: flex;
+}
+.header {
+  border-bottom: 1px solid #333;
+}
+.header li {
+  list-style: none;
+  height: 50px;
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+  background: #ccc;
+  color: #333;
+}
+#content {
+  position: absolute;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  overflow: scroll;
+}
+.bill-item div {
+  flex: 1;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
