@@ -3,12 +3,38 @@
   padding: 0;
 }
 .container{
-  position: relative;
+  display: flex;
   width: 90%;
   height: 500px;
   margin: 50px auto;
   border: 1px solid #bbb;
   box-shadow: 2px 2px 20px #000;
+}
+.ctrl-panel{
+  width: 200px;
+  background: rgba(0,0,0,.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.ctrl-item{
+  height: 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ctrl-item .select{
+  width: 100px;
+  height: 30px;
+}
+.ctrl-label{
+  margin: 10px;
+}
+.main{
+  flex: 1;
+  position: relative;
 }
 .header, .bill-item{
   display: flex;
