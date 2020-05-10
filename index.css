@@ -2,6 +2,19 @@
   margin: 0;
   padding: 0;
 }
+.cursor-pointer{
+  cursor: pointer;
+}
+.cursor-default{
+  cursor: default;
+}
+.font-long {
+  font-weight: 700;
+  transform: scale(1,2);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+/* 主容器 */
 .container{
   display: flex;
   width: 90%;
@@ -11,6 +24,8 @@
   border-radius: 10px;
   background: #ccc;
 }
+
+/* 侧边栏 */
 .ctrl-panel{
   width: 220px;
   background: #6286a7;
@@ -28,14 +43,62 @@
   margin: 10px;
 }
 .ctrl-item .date{
-  width: 100px;
+  width: 90px;
   height: 60px;
   line-height: 60px;
   background: #fff;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  border-radius: 10px
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 2px 2px 10px #000;
+}
+.ctrl-label{
+  margin: 10px;
+  color: #eee;
+  font-family: fantasy;
+}
+.date-list{
+  position: absolute;
+  top: 50px;
+  overflow: auto;
+  width: 100%;
+  background: #20495b;
+  z-index: 1;
+  max-height: 200px;
+  color: #eee;
+  box-shadow: 2px 2px 10px #000;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 5px;
+}
+.date-list::-webkit-scrollbar{
+  width:4px;
+  height: 10px;
+  background: #fff;
+}
+.date-list::-webkit-scrollbar-thumb{
+  background: #bbb;
+  border-radius: 10px;
+}
+.date-list li{
+  list-style: none;
+  line-height: 40px;
+  border-bottom: 1px solid #ccc;
+}
+.date-list li:hover{
+  background: #f5f5f5;
+  color: #666;
+  font-size: 18px;
+}
+.year-list, .month-list{
+  display: none;
+}
+.nobill-tips{
+  text-align: center;
+  margin-top: 50px;
+  color: #888;
 }
 .sumary{
   flex: 1;
@@ -52,7 +115,7 @@
   width: 100%;
   line-height: 50px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 .sumary-item-label{
   margin-left: 10px;
@@ -73,14 +136,11 @@
 .income{
   color: rgb(42, 189, 140);
 }
-.outcome{
+.outlay{
   color: rgb(226, 60, 38);
 }
-.ctrl-label{
-  margin: 10px;
-  color: #eee;
-  font-family: fantasy;
-}
+
+/* 账单列表 */
 .main{
   flex: 1;
   display: flex;
@@ -103,7 +163,8 @@
   line-height: 50px;
   background: #ccc;
   color: #333;
-}.header li:last-child{
+}
+.bill-header li:last-child{
   border-radius: 0 10px 0 0;
 }
 #content {
@@ -121,7 +182,7 @@
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
-.add-icon{
+.add-bill{
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -133,4 +194,60 @@
   background-image: url(./assets/add.png);
   background-position: center;
   background-size: contain;
+}
+
+/* 添加账单 */
+#add-bill-wrapper{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  height: 100%;;
+  background: rgba(0, 0, 0, .5);
+  display: none;
+}
+.add-bill-content{
+  width: 600px;
+  /* height: 400px; */
+  background: #fff;
+  margin: 100px auto;
+  border: 1px solid #666;
+  box-shadow: 2px 2px 20px #000;
+}
+.add-bill-item {
+  display: flex;
+}
+.add-bill-item div {
+  flex: 1;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.type-select{
+  height: 35px;
+  font-size: 14px;
+}
+.amount{
+  width: 80%;
+  height: 30px;
+  padding: 0 5px;
+  font-size: 14px;
+}
+.handle-btn{
+  display: flex;
+  justify-content: space-around;
+}
+.handle-btn .btn{
+  padding: 10px 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+}
+.plus-btn, .minus-btn{
+  padding: 5px 10px;
+  outline: none;
+  font-size: 16px;
 }

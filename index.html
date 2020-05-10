@@ -18,11 +18,38 @@
     <div class="ctrl-panel">
       <div class="ctrl-item">
         <div class="ctrl-label"> 年份：</div>
-        <div class="date">2020</div>
+        <div class="date">
+          <p class="font-long cursor-pointer" id="year"></p>
+          <ul class="date-list year-list cursor-default">
+            <li>All</li>
+            <li>2020</li>
+            <li>2019</li>
+            <li>2018</li>
+            <li>2017</li>
+            <li>2016</li>
+          </ul>
+        </div>
       </div>
       <div class="ctrl-item">
         <div class="ctrl-label">月份：</div>
-        <div class="date">05</div>
+        <div class="date">
+          <p class="font-long cursor-pointer" id="month"></p>
+          <ul class="date-list month-list cursor-default">
+            <li>All</li>
+            <li>12</li>
+            <li>11</li>
+            <li>10</li>
+            <li>09</li>
+            <li>08</li>
+            <li>07</li>
+            <li>06</li>
+            <li>05</li>
+            <li>04</li>
+            <li>03</li>
+            <li>02</li>
+            <li>01</li>
+          </ul>
+        </div>
       </div>
       <div class="sumary">
         <div class="sumary-item">
@@ -31,22 +58,66 @@
         </div>
         <div class="sumary-item">
           <span class="sumary-item-label">支出：</span>
-          <span class="sumary-num outcome">112222</span>
+          <span class="sumary-num outlay">112222</span>
         </div>
       </div>
     </div>
     <div class="main">
-      <ul class="header">
+      <ul class="header bill-header">
         <li>账单时间</li>
         <li>账单类型</li>
         <li>账单分类</li>
         <li>账单金额（￥）</li>
       </ul>
-      <ul id="content"></ul>  
-      <div class="add-icon" title="添加账单"></div>    
+      <ul id="content"></ul>
+      <div class="add-bill" title="添加账单"></div>
     </div>
-    
+  </div>
+  <div id="add-bill-wrapper">
+    <div class="add-bill-content">
+      <ul class="header add-header">
+        <li>账单时间</li>
+        <li>账单类型</li>
+        <li>账单分类</li>
+        <li>账单金额（￥）</li>
+        <li>操作</li>
+      </ul>
+      <ul>
+        <li class="add-bill-item">
+          <div>
+            <input type="text" class="amount input-value" 
+              data-typeName="账单时间" data-type="time" placeholder="yyyy/mm/dd">
+          </div>
+          <div>
+            <select name="" class="type-select select-value" data-type="type">
+              <option>收入</option>
+              <option>支出</option>
+            </select>
+          </div>
+          <div>
+            <select name="" class="type-select select-value" 
+              data-type="category" id="category-select">
+            </select>
+          </div>
+          <div>
+            <input type="text" class="amount input-value" 
+              data-typeName="账单金额" data-type="amount">
+          </div>
+          <div>
+            <button class="plus-btn">+</button>
+            <!-- <button class="minus-btn">-</button> -->
+          </div>
+        </li>
+      </ul>
+      <div class="handle-btn">
+        <button class="btn" id="cancel-btn">取消</button>
+        <button class="btn" id="save-btn">保存</button>
+      </div>
+    </div>
   </div>
 </body>
+<script>
+
+</script>
 
 </html>

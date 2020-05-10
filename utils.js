@@ -86,14 +86,14 @@ function dateFormat(time, showSec) {
   let min = date.getMinutes()
   let sec = date.getSeconds()
 
-  month = month > 10 ? month : `0${month}`
-  day = day > 10 ? day : `0${day}`
-  hour = hour > 10 ? hour : `0${hour}`
-  min = min > 10 ? min : `0${min}`
-  sec = sec > 10 ? sec : `0${sec}`
+  month = month < 10 ? `0${month}` : month
+  day = day < 10 ? `0${day}` : day
+  hour = hour < 10 ? `0${hour}` : hour
+  min = min < 10 ? `0${min}`: min
+  sec = sec < 10 ? `0${sec}` : sec
 
-  return showSec ? `${year}-${month}-${day} ${hour}:${min}:${sec}`
-    : `${year}-${month}-${day}`
+  return showSec ? `${year}/${month}/${day} ${hour}:${min}:${sec}`
+    : `${year}/${month}/${day}`
 }
 
 // 账单类型
