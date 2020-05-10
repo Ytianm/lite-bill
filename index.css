@@ -17,7 +17,7 @@
 /* 主容器 */
 .container{
   display: flex;
-  width: 90%;
+  width: 70%;
   height: 500px;
   margin: 50px auto;
   box-shadow: 2px 2px 20px #000;

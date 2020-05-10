@@ -152,10 +152,6 @@ window.onload = function () {
    * 添加账单
    */
   addBillDom.addEventListener('click', e => {
-    // let el = document.createElement('li')
-    // el.setAttribute('class', 'bill-item')
-    // el.innerHTML = '<div>13456</div>'
-    // contentDom.appendChild(el)
     addBillWrapperDom.style.display = 'block'
     
     let optionStr = ''
