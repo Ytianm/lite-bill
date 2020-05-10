@@ -8,14 +8,17 @@
   height: 500px;
   margin: 50px auto;
   box-shadow: 2px 2px 20px #000;
+  border-radius: 10px;
+  background: #ccc;
 }
 .ctrl-panel{
-  width: 200px;
+  width: 220px;
   background: #6286a7;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  border-radius: 10px;
 }
 .ctrl-item{
   text-align: center;
@@ -36,8 +39,8 @@
 }
 .sumary{
   flex: 1;
-  width: 100%;
-  margin-top: 50px;
+  width: 90%;
+  margin-top: 40px;
   border-top: 1px solid #ccc;
   display: flex;
   flex-direction: column;
@@ -53,7 +56,9 @@
 }
 .sumary-item-label{
   margin-left: 10px;
-  color: #333;
+  color: #eee;
+  font-family: fantasy;
+  font-size: 16px;
 }
 .sumary-num{
   flex: 1;
@@ -73,10 +78,16 @@
 }
 .ctrl-label{
   margin: 10px;
+  color: #eee;
+  font-family: fantasy;
 }
 .main{
   flex: 1;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  border-radius: 10px;
+  background: #fff;
 }
 .header, .bill-item{
   display: flex;
@@ -92,21 +103,21 @@
   line-height: 50px;
   background: #ccc;
   color: #333;
+}.header li:last-child{
+  border-radius: 0 10px 0 0;
 }
 #content {
-  position: absolute;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex: 1;
   padding: 10px;
-  overflow: scroll;
+  overflow: auto;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  background: #fff;
 }
 .bill-item div {
   flex: 1;
   height: 50px;
   line-height: 50px;
-  background: #fff;
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
