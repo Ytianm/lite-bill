@@ -9,8 +9,9 @@
   cursor: default;
 }
 .font-long {
+  font-size: 34px;
   font-weight: 700;
-  transform: scale(1,2);
+  /* transform: scale(1,2); */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
@@ -84,7 +85,7 @@
 }
 .date-list li{
   list-style: none;
-  line-height: 40px;
+  line-height: 30px;
   border-bottom: 1px solid #ccc;
 }
 .date-list li:hover{
@@ -250,4 +251,8 @@
   padding: 5px 10px;
   outline: none;
   font-size: 16px;
+}
+#add-bill-list{
+  max-height: 300px;
+  overflow: auto;
 }

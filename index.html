@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="./index.css">
   <script src="./utils.js"></script>
   <script src="./index.js"></script>
-  <script src="./assets/bill.js"></script>
-  <script src="./assets/categories.js"></script>
+  <!-- <script src="./assets/data.js"></script> -->
 </head>
 
 <body>
@@ -82,7 +81,7 @@
         <li>账单金额（￥）</li>
         <li>操作</li>
       </ul>
-      <ul>
+      <ul id="add-bill-list">
         <li class="add-bill-item">
           <div>
             <input type="text" class="amount input-value" 
@@ -95,17 +94,16 @@
             </select>
           </div>
           <div>
-            <select name="" class="type-select select-value" 
-              data-type="category" id="category-select">
+            <select name="" class="type-select select-value category-select" 
+              data-type="category">
             </select>
           </div>
           <div>
             <input type="text" class="amount input-value" 
               data-typeName="账单金额" data-type="amount">
           </div>
-          <div>
+          <div class="plus-minus">
             <button class="plus-btn">+</button>
-            <!-- <button class="minus-btn">-</button> -->
           </div>
         </li>
       </ul>

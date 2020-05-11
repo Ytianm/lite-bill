@@ -12,10 +12,12 @@ window.onload = function () {
   const addBillDom = document.getElementsByClassName('add-bill')[0]
   const contentDom = document.getElementById('content')
   const addBillWrapperDom = document.getElementById('add-bill-wrapper')
-  const categorySelectDom = document.getElementById('category-select')
+  const categorySelectDom = document.getElementsByClassName('category-select')
   const cancelBtnDom = document.getElementById('cancel-btn')
   const saveBtnDom = document.getElementById('save-btn')
+  const addBillListDom = document.getElementById('add-bill-list')
   const addBillItemDom = document.getElementsByClassName('add-bill-item')
+  const plusMinusDom = document.getElementsByClassName('plus-minus')[0]
 
   let curYear = new Date().getFullYear()
   let curMonth = new Date().getMonth() + 1
@@ -26,43 +28,34 @@ window.onload = function () {
   const dateReg = /^\d{4}\/\d{2}\/\d{2}$/g
   const numReg = /^\d$/g
 
-  console.log(csvToObject(billStr));
-  console.log(csvToObject(categoriesStr))
-  let categories = csvToObject(categoriesStr) // 账单分类
-  let billSrc = csvToObject(billStr) // 所有账单数据
+  let categories // 账单分类
+  let billSrc // 所有账单数据
   let billObj = []
 
-  billSrc.forEach(bill => {
-    billObj.push({
-      time: dateFormat(bill.time),
-      type: billTypeToName(bill.type),
-      category: categoryToName(bill.category),
-      amount: Number(bill.amount).toFixed(2)
+  function getCsvData() {
+    ajax({ url: '/assets/bill.csv' }).then(res => {
+      billSrc = csvToObject(res)
+
+      ajax({ url: '/assets/categories.csv' }).then(res => {
+        categories = csvToObject(res)
+        // 初始化
+        init()
+      })
     })
-  })
-
-  // let categories = []
-
-  // ajax({ url: billUrl }).then(res => {
-  //   bill = csvToObject(res)
-
-  //   ajax({ url: categoriesUrl }).then(res => {
-  //     categories = csvToObject(res)
-  //     renderBill()
-  //   })
-  // })
+  }
 
   /**
    * 年份选择
    */
-  yearDom.onclick = function(e) {
+  yearDom.onclick = function (e) {
     e.stopPropagation()
     yearListDom.style.display = 'block'
+    monthListDom.style.display = 'none'
   }
 
   yearListDom.addEventListener('click', e => {
     yearDom.innerText = curYear = e.target.innerText
-    
+
     // 更新账单
     handleBill(curYear, curMonth)
   })
@@ -70,9 +63,10 @@ window.onload = function () {
   /**
    * 月份选择
    */
-  monthDom.onclick = function(e) {
+  monthDom.onclick = function (e) {
     e.stopPropagation()
     monthListDom.style.display = 'block'
+    yearListDom.style.display = 'none'
   }
 
   monthListDom.addEventListener('click', e => {
@@ -153,7 +147,14 @@ window.onload = function () {
    */
   addBillDom.addEventListener('click', e => {
     addBillWrapperDom.style.display = 'block'
-    
+    renderCategorySelectList()
+  })
+
+  /**
+   * 渲染账单分类下拉选项
+   */
+  function renderCategorySelectList() {
+
     let optionStr = ''
     categories.forEach(c => {
       let itemStr = `
@@ -162,8 +163,11 @@ window.onload = function () {
       optionStr += itemStr
     })
 
-    categorySelectDom.innerHTML = optionStr
-  })
+    // categorySelectDom.innerHTML = optionStr
+    Array.from(categorySelectDom).forEach(c => {
+      c.innerHTML = optionStr
+    })
+  }
 
   /**
    * 新增账单-取消
@@ -177,7 +181,6 @@ window.onload = function () {
    */
   saveBtnDom.addEventListener('click', e => {
     let flag = true
-    let addArr = []
     let addBillItemDomArr = Array.from(addBillItemDom)
     outFor:
     for (let item of addBillItemDomArr) {
@@ -213,7 +216,51 @@ window.onload = function () {
       if (flag) {
         billObj.push(obj)
         addBillWrapperDom.style.display = 'none'
+
+        // 刷新
+        handleBill(curYear, curMonth)
       }
+    }
+  })
+
+  /**
+   * 新增账单：+新增一行
+   * 基于事件委托，为动态添加的账单按钮绑定事件
+   */
+  addBillListDom.addEventListener('click', e => {
+    if (e.target.className === 'plus-btn') { // +
+      let li = document.createElement('li')
+      li.setAttribute('class', 'add-bill-item')
+      li.innerHTML = `
+        <div>
+          <input type="text" class="amount input-value" 
+            data-typeName="账单时间" data-type="time" placeholder="yyyy/mm/dd">
+        </div>
+        <div>
+          <select name="" class="type-select select-value" data-type="type">
+            <option>收入</option>
+            <option>支出</option>
+          </select>
+        </div>
+        <div>
+          <select name="" class="type-select select-value category-select" 
+            data-type="category">
+          </select>
+        </div>
+        <div>
+          <input type="text" class="amount input-value" 
+            data-typeName="账单金额" data-type="amount">
+        </div>
+        <div class="plus-minus">
+          <button class="plus-btn">+</button>
+          <button class="minus-btn">-</button>
+        </div>
+      `      
+      addBillListDom.appendChild(li)
+      renderCategorySelectList()
+    }
+    if (e.target.className === 'plus-btn') { // -
+
     }
   })
 
@@ -221,6 +268,16 @@ window.onload = function () {
    * 初始化
    */
   function init() {
+    // 处理数据
+    billSrc.forEach(bill => {
+      billObj.push({
+        time: dateFormat(bill.time),
+        type: billTypeToName(bill.type),
+        category: categoryToName(bill.category, categories),
+        amount: Number(bill.amount).toFixed(2)
+      })
+    })
+
     yearDom.innerText = curYear
     monthDom.innerText = curMonth
 
@@ -233,9 +290,7 @@ window.onload = function () {
     monthListDom.style.display = 'none'
   })
 
-  // 初始化
-  init()
-
-
+  // 获取账单csv数据
+  getCsvData()
 }
 

@@ -106,9 +106,8 @@ function billTypeToName(type) {
 }
 
 // 账单分类
-function categoryToName(type) {
-  const categories = csvToObject(categoriesStr)
-  const categoriesList = {}
+function categoryToName(type, categories) {
+  let categoriesList = {}
 
   categories.forEach(item => {
     categoriesList[item.id] = item.name
