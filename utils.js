@@ -1,3 +1,7 @@
+/**
+ * 原生请求方法封装
+ * @param {object} options 
+ */
 function ajax(options) {
   const method = options.method || 'GET'
   const async = options.async || true
@@ -19,7 +23,7 @@ function ajax(options) {
         if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
           resolve && resolve(xhr.responseText)
         } else {
-          reject && reject()
+          reject && reject('ERROR')
         }
       }
     }
@@ -54,7 +58,10 @@ function ajax(options) {
   })
 }
 
-// csv字符串转换成对象数组
+/**
+ * csv字符串转换成对象数组
+ * @param {string} csvString 
+ */
 function csvToObject(csvString) {
   let csvArr = csvString.split(/\n/g)
   let headerArr = csvArr[0].split(",")
@@ -73,7 +80,11 @@ function csvToObject(csvString) {
   return csvObj
 }
 
-// 格式化日期
+/**
+ * 格式化日期
+ * @param {timestamp} time 
+ * @param {Boolean} showSec 
+ */
 function dateFormat(time, showSec) {
   if (!time) return ''
 
@@ -92,11 +103,15 @@ function dateFormat(time, showSec) {
   min = min < 10 ? `0${min}`: min
   sec = sec < 10 ? `0${sec}` : sec
 
-  return showSec ? `${year}/${month}/${day} ${hour}:${min}:${sec}`
+  return showSec 
+    ? `${year}/${month}/${day} ${hour}:${min}:${sec}`
     : `${year}/${month}/${day}`
 }
 
-// 账单类型
+/**
+ * 账单类型
+ * @param {string} type 
+ */
 function billTypeToName(type) {
   const typeList = {
     "0": '支出',
@@ -105,7 +120,11 @@ function billTypeToName(type) {
   return typeList[type]
 }
 
-// 账单分类
+/**
+ * 账单分类
+ * @param {string} type 
+ * @param {array} categories 
+ */
 function categoryToName(type, categories) {
   let categoriesList = {}
 
