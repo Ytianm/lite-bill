@@ -31,7 +31,7 @@ window.onload = function () {
   let billUrl,categoriesUrl
 
   // 账单数据来源
-  if (1) { // 本地
+  if (0) { // 本地
     billUrl = '/assets/bill.csv'
     categoriesUrl = '/assets/categories.csv'
   } else { // GitHub
