@@ -31,7 +31,7 @@ window.onload = function () {
   let billUrl,categoriesUrl
 
   // 账单数据来源
-  if (0) { // 本地
+  if (1) { // 本地
     billUrl = '/assets/bill.csv'
     categoriesUrl = '/assets/categories.csv'
   } else { // GitHub
@@ -64,13 +64,14 @@ window.onload = function () {
    * 年份选择
    */
   yearDom.onclick = function (e) {
-    e.stopPropagation()
-    yearListDom.style.display = 'block'
-    monthListDom.style.display = 'none'
+    // e.stopPropagation()
+    // yearListDom.style.display = 'block'
+    // monthListDom.style.display = 'none'
   }
 
   yearListDom.addEventListener('click', e => {
     yearDom.innerText = curYear = e.target.innerText
+    // yearListDom.style.maxHeight = '0'
 
     // 更新账单
     handleBill(curYear, curMonth)
@@ -80,9 +81,9 @@ window.onload = function () {
    * 月份选择
    */
   monthDom.onclick = function (e) {
-    e.stopPropagation()
-    monthListDom.style.display = 'block'
-    yearListDom.style.display = 'none'
+    // e.stopPropagation()
+    // monthListDom.style.display = 'block'
+    // yearListDom.style.display = 'none'
   }
 
   monthListDom.addEventListener('click', e => {
@@ -346,8 +347,8 @@ window.onload = function () {
   }
 
   document.addEventListener('click', e => {
-    yearListDom.style.display = 'none'
-    monthListDom.style.display = 'none'
+    // yearListDom.style.display = 'none'
+    // monthListDom.style.display = 'none'
   })
 
   // 获取账单csv数据
