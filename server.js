@@ -16,6 +16,7 @@ server.on('request', (req, res) => {
 
   // 文件路径
   let filepath = path.join(__dirname, pathname)
+  console.log(filepath);
   
   // 读取文件
   fs.readFile(filepath, (err, data) => {

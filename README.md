@@ -1,30 +1,28 @@
-1. 项目配置
+1. 项目配置：index.js->config
 
-   1. 在根目录下的index.js->config里设置是否使用node服务作为账单数据请求服务
+   1. nodeServer
+      1. 定义：是否已执行node server.js启动了node文件服务器。默认false
+   2. dataSource
+      1. 定义：账单数据源类型
+      2. “1”：读取GitHub远端仓库的CSV文件；"2"：读取本地CSV文件；“3”：使用本地字符串数据。默认“3”
 
-      1. useNodeServer: true   // 使用(默认)
-      2. useNodeServer: false  // 不使用
+   注意：如果需要读取本地CSV文件作为账单数据源，即dataSource为“2”时，需要在命令行工具执行node server.js启动node服务，再把nodeServer的值设置为true。
 
-   2. 如果useNodeServer=== true，可在index.js->config里设置请求的数据源
+   
 
-      1. dataSource: "1"   // 请求GitHub上的文件（默认）
-      2. dataSource: "2"   // 请求本地文件
+2. 项目启动方式
 
-   3. 如果useNodeServer=== false，则直接使用assets->data.js里定义的本地字符串数据。
+   根据1项目配置情况选择对应的启动方式：
+   1. 如果不使用node，直接在项目目录下打开index.html。（默认配置使用这种方式启动）
 
-      
 
-2. 项目启动
-
-   1. 通过node服务访问
+   2. 如果需使用node服务访问
 
       在项目根目录下打开命令行工具，输入node server.js，回车启动node服务，复制链接 http://localhost:2757/index.html 到浏览器打开。
 
-   2. 直接在项目目录下打开index.html。
-
       
 
-3. 启动说明：因为从GitHub上请求文件会有请求超时的情况，所以在本地也创建了账单CSV文件，如页面长时间loading，可通过1项目配置更改数据源为本地即可。
+3. 启动说明：因为从GitHub上请求文件常有请求超时的情况，所以在本地也创建了账单CSV文件，如页面长时间loading，可通过1项目配置更改数据源为本地（“2”或者“3”）即可快速启动项目。
 
    
 

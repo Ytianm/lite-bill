@@ -2,8 +2,8 @@
 window.onload = function () {
   // 项目启动配置
   const config = {
-    useNodeServer: true, // 是否使用node服务请求数据
-    dataSource: '1' // 请求数据来源，1：GitHub文件，2：本地文件
+    nodeServer: false, // 是否已执行“node server.js”开启node服务
+    dataSource: '3' // 请求数据来源，1：GitHub CSV文件，2：本地CSV文件，3：本地字符串数据
   }
 
   // 获取dom
@@ -45,21 +45,30 @@ window.onload = function () {
   let gitCategoriesUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
 
   // 获取账单csv文件
-  if (config.useNodeServer) { // 使用本地node服务读取文件
-    if (config.dataSource === '1') { // 读取GitHub文件
-      getCsvData(gitBillUrl, gitCategoriesUrl)
-    } else if (config.dataSource === '2') { // 读取本地文件
-      getCsvData(localBillUrl, localCategoriesUrl)
+  if (config.dataSource === '1') { // 读取GitHub csv文件
+    getCsvData(gitBillUrl, gitCategoriesUrl)
+  } else if (config.dataSource === '2') { // 读取本地csv文件需通过node服务
+    if (!config.nodeServer) {
+      alert('请启动node服务后再刷新重试！')
+      return
     }
-  } else { // 直接使用本地数据
+    getCsvData(localBillUrl, localCategoriesUrl)
+  } else if (config.dataSource === '3') { // 直接使用本地string数据
     let s = document.createElement('script')
     s.type = 'text/javascript'
     s.src = './assets/data.js'
     document.body.appendChild(s)
+    
     s.onload = function() {
       billSrc = csvToObject(localBillStr)
       categories = csvToObject(localCategoriesStr)
-      init()
+
+      bgDom.style.display = 'block'
+      // 模拟请求
+      setTimeout(() => {
+        bgDom.style.display = 'none'
+        init()
+      }, 2000)
     }
   }
 
@@ -77,11 +86,11 @@ window.onload = function () {
         // 初始化
         init()
       }).catch(err => {
-        alert('请求失败，请刷新重试，或前往index.js更换请求路径！\n详情参考README.md')
+        alert('请求失败，请刷新重试，或前往index.js修改请求配置！\n详情参考README.md')
         bgDom.style.display = 'none'
       })
     }).catch(err => {
-      alert('请求失败，请刷新重试，或前往index.js更换请求路径！\n详情参考README.md')
+      alert('请求失败，请刷新重试，或前往index.js修改请求配置！\n详情参考README.md')
       bgDom.style.display = 'none'
     })
   }
