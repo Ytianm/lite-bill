@@ -44,10 +44,9 @@ window.onload = function () {
   let gitBillUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/bill.csv'
   let gitCategoriesUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
 
-
   // 获取账单csv文件
-  if (config.useNodeServer) { // 如过使用本地node服务，则通过ajax读取文件
-    if (config.dataSource === '1') { // 拉取GitHub文件
+  if (config.useNodeServer) { // 使用本地node服务读取文件
+    if (config.dataSource === '1') { // 读取GitHub文件
       getCsvData(gitBillUrl, gitCategoriesUrl)
     } else if (config.dataSource === '2') { // 读取本地文件
       getCsvData(localBillUrl, localCategoriesUrl)
@@ -78,9 +77,11 @@ window.onload = function () {
         // 初始化
         init()
       }).catch(err => {
+        alert('请求失败，请刷新重试，或前往index.js更换请求路径！\n详情参考README.md')
         bgDom.style.display = 'none'
       })
     }).catch(err => {
+      alert('请求失败，请刷新重试，或前往index.js更换请求路径！\n详情参考README.md')
       bgDom.style.display = 'none'
     })
   }
@@ -88,15 +89,8 @@ window.onload = function () {
   /**
    * 年份选择
    */
-  yearDom.onclick = function (e) {
-    // e.stopPropagation()
-    // yearListDom.style.display = 'block'
-    // monthListDom.style.display = 'none'
-  }
-
   yearListDom.addEventListener('click', e => {
     yearDom.innerText = curYear = e.target.innerText
-    // yearListDom.style.maxHeight = '0'
 
     // 更新账单
     handleBill(curYear, curMonth)
@@ -105,12 +99,6 @@ window.onload = function () {
   /**
    * 月份选择
    */
-  monthDom.onclick = function (e) {
-    // e.stopPropagation()
-    // monthListDom.style.display = 'block'
-    // yearListDom.style.display = 'none'
-  }
-
   monthListDom.addEventListener('click', e => {
     monthDom.innerText = curMonth = e.target.innerText
 

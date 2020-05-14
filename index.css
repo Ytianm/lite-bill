@@ -153,6 +153,10 @@
   border-bottom: 1px solid #eee;
 }
 
+.date-list .date-num:last-child {
+  border-bottom: none;
+}
+
 .date-list .date-num:hover {
   background: #fff;
   color: #ff7b00;
@@ -303,7 +307,6 @@
 
 .add-bill-content {
   width: 600px;
-  /* height: 400px; */
   background: #fff;
   margin: 100px auto;
   border: 1px solid #666;
@@ -381,28 +384,39 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, .6);
   display: none;
   z-index: 5;
 }
 
 /* loading动画 */
-.loading {
-  width: 40px;
-  height: 40px;
+.loading-wrapper{
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-radius: 4px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-left: -30px;
   margin-top: -30px;
 }
+.loading {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -12px;
+  margin-top: -12px;
+}
 
 .container1>div,
 .container2>div,
 .container3>div {
-  width: 8px;
-  height: 8px;
-  background-color: #eee;
+  width: 6px;
+  height: 6px;
+  background-color: #bbb;
 
   border-radius: 100%;
   position: absolute;
