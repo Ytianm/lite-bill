@@ -2,12 +2,12 @@
 
    1. 在根目录下的index.js->config里设置是否使用node服务作为账单数据请求服务
 
-      1. useNodeServer: true   // 使用
+      1. useNodeServer: true   // 使用(默认)
       2. useNodeServer: false  // 不使用
 
    2. 如果useNodeServer=== true，可在index.js->config里设置请求的数据源
 
-      1. dataSource: "1"   // 请求GitHub上的文件
+      1. dataSource: "1"   // 请求GitHub上的文件（默认）
       2. dataSource: "2"   // 请求本地文件
 
    3. 如果useNodeServer=== false，则直接使用assets->data.js里定义的本地字符串数据。
