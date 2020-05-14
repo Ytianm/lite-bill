@@ -21,8 +21,10 @@ window.onload = function () {
   let totalIncome = 0
   let totalOutlay = 0
 
-  const dateReg = /^\d{4}\/\d{2}\/\d{2}$/g
-  const numReg = /^\d$/g
+  const dateReg = /^\d{4}\/\d{2}\/\d{2}$/
+
+  // 金额：最多两位小数的正负数字
+  const numReg = /^\-?(0|0\.[0-9]{1,2}|[1-9]{1}[0-9]*|[1-9]{1}[0-9]*\.[0-9]{1,2})$/
 
   let categories // 账单分类
   let billSrc // 所有账单数据
@@ -31,7 +33,7 @@ window.onload = function () {
   let billUrl,categoriesUrl
 
   // 账单数据来源
-  if (0) { // 本地
+  if (1) { // 本地
     billUrl = '/assets/bill.csv'
     categoriesUrl = '/assets/categories.csv'
   } else { // GitHub
@@ -168,7 +170,7 @@ window.onload = function () {
     addBillListDom.innerHTML = ''
 
     // 再添加一条默认账单
-    addBillListDom.appendChild(createBillItm(true))
+    addBillListDom.appendChild(createBill(true))
 
     // 下拉选项赋值
     renderCategorySelectList()
@@ -218,11 +220,21 @@ window.onload = function () {
           alert(typeName + '不能为空！');
           break outFor
         }
-        dateReg.lastIndex = 0
+        
         if (type === 'time' && !dateReg.test(i.value)) {
           flag = false
           alert('账单时间格式有误，正确格式为：yyyy/mm/dd')
           break outFor
+        }
+
+        if (type === 'amount' && !numReg.test(i.value)) {
+          flag = false
+          alert('请输入正确的账单金额，最多保留两位小数！')
+          break outFor
+        }
+
+        if (type === 'amount' && numReg.test(i.value)) {
+          i.value = Number(i.value).toFixed(2)
         }
 
         obj[type] = i.value
@@ -254,7 +266,7 @@ window.onload = function () {
    */
   addBillListDom.addEventListener('click', e => {
     if (e.target.dataset.type === 'plus') { // +  
-      addBillListDom.appendChild(createBillItm(false))
+      addBillListDom.appendChild(createBill(false))
       renderCategorySelectList()
     }
 
@@ -266,7 +278,7 @@ window.onload = function () {
   /**
    * 创建一条新增账单
    */
-  function createBillItm(flag) {
+  function createBill(flag) {
     let btnEl = flag ? '<button class="plus-btn btn" data-type="plus">+</button>' 
       : '<button class="minus-btn btn" data-type="minus">-</button>'
 
