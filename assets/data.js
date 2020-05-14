@@ -1,4 +1,4 @@
-const  billStr = `type,time,category,amount
+const  localBillStr = `type,time,category,amount
 0,1561910400000,8s0p77c323,5400
 0,1561910400000,0fnhbcle6hg,1500
 0,1563897600000,3tqndrjqgrg,3900
@@ -47,7 +47,7 @@ const  billStr = `type,time,category,amount
 1,1577345638784,1vjj47vpd28,2000
 1,1589105487427,1vjj47vpd28,6666`
 
-const categoriesStr = `id,type,name
+const localCategoriesStr = `id,type,name
 1bcddudhmh,0,车贷
 hc5g66kviq,0,车辆保养
 8s0p77c323,0,房贷

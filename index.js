@@ -1,5 +1,12 @@
 
 window.onload = function () {
+  // 项目启动配置
+  const config = {
+    useNodeServer: true, // 是否使用node服务请求数据
+    dataSource: '1' // 请求数据来源，1：GitHub文件，2：本地文件
+  }
+
+  // 获取dom
   const yearDom = document.getElementById('year')
   const yearListDom = document.getElementsByClassName('year-list')[0]
   const monthDom = document.getElementById('month')
@@ -17,31 +24,48 @@ window.onload = function () {
 
   let curYear = new Date().getFullYear()
   let curMonth = new Date().getMonth() + 1
-  let curDate = dateFormat(new Date().getTime())
   let totalIncome = 0
   let totalOutlay = 0
 
+  // 日期格式：2020/05/13
   const dateReg = /^\d{4}\/\d{2}\/\d{2}$/
-
   // 金额：最多两位小数的正负数字
   const numReg = /^\-?(0|0\.[0-9]{1,2}|[1-9]{1}[0-9]*|[1-9]{1}[0-9]*\.[0-9]{1,2})$/
 
   let categories // 账单分类
-  let billSrc // 所有账单数据
-  let billObj = []
-
-  let billUrl,categoriesUrl
+  let billSrc // 账单数据原始数据
+  let billObj = [] // 处理后账单数据
 
   // 账单数据来源
-  if (1) { // 本地
-    billUrl = '/assets/bill.csv'
-    categoriesUrl = '/assets/categories.csv'
-  } else { // GitHub
-    billUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/bill.csv'
-    categoriesUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
+  // 本地
+  let localBillUrl = '/assets/bill.csv'
+  let localCategoriesUrl = '/assets/categories.csv'
+  // GitHub
+  let gitBillUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/bill.csv'
+  let gitCategoriesUrl = 'https://raw.githubusercontent.com/xmindltd/hiring/master/frontend-1/categories.csv'
+
+
+  // 获取账单csv文件
+  if (config.useNodeServer) { // 如过使用本地node服务，则通过ajax读取文件
+    if (config.dataSource === '1') { // 拉取GitHub文件
+      getCsvData(gitBillUrl, gitCategoriesUrl)
+    } else if (config.dataSource === '2') { // 读取本地文件
+      getCsvData(localBillUrl, localCategoriesUrl)
+    }
+  } else { // 直接使用本地数据
+    let s = document.createElement('script')
+    s.type = 'text/javascript'
+    s.src = './assets/data.js'
+    document.body.appendChild(s)
+    s.onload = function() {
+      billSrc = csvToObject(localBillStr)
+      categories = csvToObject(localCategoriesStr)
+      init()
+    }
   }
 
-  function getCsvData() {
+  // 请求账单csv文件
+  function getCsvData(billUrl, categoriesUrl) {
     bgDom.style.display = 'block'
     ajax({ url: billUrl }).then(res => {
       billSrc = csvToObject(res)
@@ -50,15 +74,14 @@ window.onload = function () {
         categories = csvToObject(res)
 
         bgDom.style.display = 'none'
+
         // 初始化
         init()
       }).catch(err => {
         bgDom.style.display = 'none'
-        console.log(err);
       })
     }).catch(err => {
       bgDom.style.display = 'none'
-      console.log(err);
     })
   }
 
@@ -357,13 +380,5 @@ window.onload = function () {
     // 账单筛选
     handleBill(curYear, curMonth)
   }
-
-  document.addEventListener('click', e => {
-    // yearListDom.style.display = 'none'
-    // monthListDom.style.display = 'none'
-  })
-
-  // 获取账单csv数据
-  getCsvData()
 }
 

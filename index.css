@@ -73,22 +73,13 @@
   border-radius: 5px;
   box-shadow: 2px 2px 10px #000;
   color: #ff7b00;
-}
-
-#year{
-  z-index: 4;
-}
-
-#month{
   z-index: 2;
 }
 
 .date-list {
   position: absolute;
-  top: 0;
   width: 0;
   color: #eee;
-  
   font-size: 18px;
   z-index: 1;
   transition: width 0.2s;
@@ -98,9 +89,7 @@
 
 .date-list .date-list-content{
   flex: 1;
-  /* padding: 0 10px; */
   background: #ff7b00;
-  box-shadow: 2px 2px 10px #000;
   border-radius: 5px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -108,20 +97,29 @@
   max-height: 200px;
 }
 
-.year-list .arrow{
+.arrow{
   width:0;
   height: 0;
-  border: 10px solid;
-  border-color: transparent transparent transparent #ff7b00;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-.month-list .arrow{
-  width:0;
-  height: 0;
+.date:hover .year-list .arrow{
+  border: 10px solid;
+  border-color: transparent transparent transparent #ff7b00;
+}
+
+.date:hover .month-list .arrow{
+  z-index: 3;
   border: 10px solid;
   border-color: transparent #ff7b00 transparent transparent;
-  margin-top: 10px;
+}
+
+.date:hover .year-list .date-list-content{
+  box-shadow: -10px 10px 10px #555;
+}
+
+.date:hover .month-list .date-list-content{
+  box-shadow: 10px 10px 10px #555;
 }
 
 .year-list{
@@ -135,16 +133,17 @@
 .date:hover .date-list {
   padding: 0 6px;
   width: 120%;
+  max-height: 200px;
   transition: width 0.2s;
 }
 
-.date-list::-webkit-scrollbar {
+.date-list-content::-webkit-scrollbar {
   width: 4px;
   height: 10px;
   background: #fff;
 }
 
-.date-list::-webkit-scrollbar-thumb {
+.date-list-content::-webkit-scrollbar-thumb {
   background: #bbb;
   border-radius: 10px;
 }
@@ -155,7 +154,7 @@
 }
 
 .date-list .date-num:hover {
-  background: #f5f5f5;
+  background: #fff;
   color: #ff7b00;
   font-size: 18px;
 }
@@ -279,9 +278,15 @@
   border-radius: 40px;
   box-shadow: 2px 2px 10px #333;
   cursor: pointer;
-  background-image: url(./assets/add.png);
-  background-position: center;
-  background-size: contain;
+  text-align: center;
+  line-height: 38px;
+  font-size: 34px;
+  background: #6286a7;
+  color: #fff;
+}
+.add-bill:hover{
+  background: #eee;
+  color: #6286a7;
 }
 
 /* 添加账单 */
@@ -378,6 +383,7 @@
   right: 0;
   background: rgba(0, 0, 0, .5);
   display: none;
+  z-index: 5;
 }
 
 /* loading动画 */
