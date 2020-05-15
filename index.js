@@ -2,8 +2,7 @@
 window.onload = function () {
   // 项目启动配置
   const config = {
-    nodeServer: false, // 是否已执行“node server.js”开启node服务
-    dataSource: '3' // 请求数据来源，1：GitHub CSV文件，2：本地CSV文件，3：本地字符串数据
+    dataSource: '1' // 账单数据来源，1：GitHub CSV文件，2：本地CSV文件，3：本地字符串数据
   }
 
   // 获取dom
@@ -47,11 +46,7 @@ window.onload = function () {
   // 获取账单csv文件
   if (config.dataSource === '1') { // 读取GitHub csv文件
     getCsvData(gitBillUrl, gitCategoriesUrl)
-  } else if (config.dataSource === '2') { // 读取本地csv文件需通过node服务
-    if (!config.nodeServer) {
-      alert('请启动node服务后再刷新重试！')
-      return
-    }
+  } else if (config.dataSource === '2') { // 注意：读取本地csv文件需启动node服务
     getCsvData(localBillUrl, localCategoriesUrl)
   } else if (config.dataSource === '3') { // 直接使用本地string数据
     let s = document.createElement('script')
@@ -86,11 +81,11 @@ window.onload = function () {
         // 初始化
         init()
       }).catch(err => {
-        alert('请求失败，请刷新重试，或前往index.js修改请求配置！\n详情参考README.md')
+        alert('请求失败，请刷新重试，或前往index.js修改数据源！\n详情参考README.md')
         bgDom.style.display = 'none'
       })
     }).catch(err => {
-      alert('请求失败，请刷新重试，或前往index.js修改请求配置！\n详情参考README.md')
+      alert('请求失败，请刷新重试，或前往index.js修改数据源！\n详情参考README.md')
       bgDom.style.display = 'none'
     })
   }
@@ -378,4 +373,3 @@ window.onload = function () {
     handleBill(curYear, curMonth)
   }
 }
-
